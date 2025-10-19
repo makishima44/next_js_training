@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent } from "@storybook/testing-library";
 import Button from "./Button";
 
 const meta: Meta<typeof Button> = {
@@ -19,18 +18,6 @@ export const Primary: Story = {
   },
 };
 
-// export const PrimaryFocus: Story = {
-//   args: {
-//     variant: "primary",
-//     children: "Primary Button",
-//   },
-//   play: async ({ canvasElement }) => {
-//     const canvas = within(canvasElement);
-//     const button = canvas.getByRole("button");
-//     button.focus(); // ставим фокус на кнопку
-//   },
-// };
-
 export const PrimaryDisabled: Story = {
   args: {
     variant: "primary",
@@ -42,6 +29,14 @@ export const PrimaryDisabled: Story = {
 export const Secondary: Story = {
   args: {
     variant: "secondary",
+    children: "Primary Button",
+  },
+};
+
+export const SecondaryDisabled: Story = {
+  args: {
+    variant: "secondary",
+    disabled: true,
     children: "Primary Button",
   },
 };
