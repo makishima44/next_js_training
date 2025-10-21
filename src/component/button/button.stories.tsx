@@ -22,14 +22,14 @@ export const PrimaryDisabled: Story = {
   args: {
     variant: "primary",
     disabled: true,
-    children: "Primary Button",
+    children: "PrimaryDisabled",
   },
 };
 
 export const Secondary: Story = {
   args: {
     variant: "secondary",
-    children: "Primary Button",
+    children: "Secondary Button",
   },
 };
 
@@ -37,6 +37,21 @@ export const SecondaryDisabled: Story = {
   args: {
     variant: "secondary",
     disabled: true,
-    children: "Primary Button",
+    children: "SecondaryDisabled",
+  },
+};
+
+export const Tertiary: Story = {
+  args: {
+    variant: "tertiary",
+    children: "Tertiary Button",
+  },
+};
+
+export const TertiaryDisabled: Story = {
+  args: {
+    variant: "tertiary",
+    disabled: true,
+    children: "TertiaryDisabled",
   },
 };
