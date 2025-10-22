@@ -1,12 +1,15 @@
 import clsx from "clsx";
-import React, { ComponentPropsWithoutRef } from "react";
+import React, { ComponentPropsWithoutRef, ElementType } from "react";
 
-export type Props = {
-  variant: "primary" | "secondary" | "tertiary";
+export type Props<T extends ElementType = "button"> = {
+  as?: T;
+  variant: "primary" | "secondary" | "tertiary" | "link";
   fullWidth?: boolean;
-} & ComponentPropsWithoutRef<"button">;
+} & ComponentPropsWithoutRef<T>;
 
-const Button = ({ variant = "primary", fullWidth = false, className, ...rest }: Props) => {
+export const Button = <T extends ElementType = "button">(props: Props<T>) => {
+  const { as: Component = "button", className, fullWidth, variant = "primary", ...rest } = props;
+
   const baseStyles =
     "rounded-[2px] outline-2 outline-transparent flex items-center justify-center w-[182px] h-[36px] px-6 py-[6px] transition-all duration-200";
 
@@ -19,11 +22,11 @@ const Button = ({ variant = "primary", fullWidth = false, className, ...rest }: 
 
     tertiary:
       "bg-transparent border-2 border-[var(--primary-500)] text-[var(--primary-500)] hover:border-[var(--primary-100)] hover:text-[var(--primary-100)] active:border-[var(--primary-700)] active:text-[var(--primary-700)] focus-visible:outline-[var(--primary-700)] focus-visible:border-transparent disabled:border-[var(--primary-900)] disabled:text-[var(--primary-900)]",
+
+    link: "",
   };
 
   const classes = clsx(baseStyles, variants[variant], fullWidth && "w-full", className);
 
-  return <button className={classes} {...rest} />;
+  return <Component className={classes} {...rest} />;
 };
-
-export default Button;
