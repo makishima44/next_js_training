@@ -1,5 +1,27 @@
-import Button from "@/component/button/Button";
+"use client";
+
+import { DatePicker } from "@/component/DatPicker/DatePicker";
+import { useState } from "react";
+import { DateRange } from "react-day-picker";
 
 export default function Home() {
-  return <div className={"h-screen w-full flex justify-center items-center"}></div>;
+  const [selected, setSelected] = useState<Date | DateRange | undefined>();
+
+  const handleDateChange = (value: Date | DateRange | undefined) => {
+    setSelected(value);
+  };
+
+  return (
+    <div>
+      <DatePicker
+        disabled={true}
+        label='Выбери дату'
+        mode='single'
+        value={selected}
+        onChange={handleDateChange}
+        minDate={new Date(2025, 0, 1)}
+        maxDate={new Date(2025, 11, 31)}
+      />
+    </div>
+  );
 }

@@ -1,0 +1,113 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  color: #fff;
+}
+
+.label {
+  font-size: 14px;
+  color: #a0a0a0;
+}
+
+.inputWrapper {
+  position: relative;
+  max-width: 255px;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 36px 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #121212;
+  color: #fff;
+  outline: none;
+
+  &:focus {
+    outline: 1px solid #007bff;
+  }
+}
+
+.icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 18px;
+  color: #fff;
+}
+
+.calendarWrapper {
+  margin-top: 8px;
+  background: #1c1c1c;
+  border-radius: 12px;
+  padding: 12px;
+  width: 300px;
+}
+
+.selected {
+  background-color: #2563eb;
+  color: white;
+  border-radius: 50%;
+}
+
+.today {
+  border: 1px solid #2563eb;
+}
+
+.otherMonth {
+  color: #555;
+}
+
+.rangeStart {
+  background-color: #2563eb;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.rangeEnd {
+  background-color: #2563eb;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.rangeMiddle {
+  background-color: #3b82f6;
+  color: #fff;
+  border-radius: 0;
+}
+
+.selected {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+.today {
+  border: 1px solid #2563eb;
+}
+
+.inputWrapper.disabled .input {
+  border-top: none;
+  border-color: #555;
+  cursor: not-allowed;
+}
+.weekend {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.inputWrapper.error .input {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.errorText {
+  color: #ef4444;
+  font-size: 12px;
+}
