@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { DatePicker, Props as DatePickerProps } from "./DatePicker";
 import { DateRange } from "react-day-picker";
+import { startOfMonth, endOfMonth } from "date-fns";
 
 export default {
   title: "Components/DatePicker",
@@ -37,6 +38,7 @@ const Template: StoryFn<DatePickerProps> = (args) => {
   );
 };
 
+// Истории
 export const Single = Template.bind({});
 Single.args = {
   mode: "single",
@@ -65,4 +67,22 @@ Error.args = {
   label: "Select a date",
   placeholder: "Pick a date",
   error: "Error!",
+};
+
+export const ThisMonthOnly = Template.bind({});
+ThisMonthOnly.args = {
+  mode: "single",
+  label: "Выберите дату",
+  placeholder: "Только этот месяц",
+  minDate: startOfMonth(new Date()),
+  maxDate: endOfMonth(new Date()),
+};
+
+export const RangeThisMonth = Template.bind({});
+RangeThisMonth.args = {
+  mode: "range",
+  label: "Выберите диапазон",
+  placeholder: "Только этот месяц",
+  minDate: startOfMonth(new Date()),
+  maxDate: endOfMonth(new Date()),
 };
