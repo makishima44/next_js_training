@@ -53,10 +53,6 @@
   border-radius: 50%;
 }
 
-.today {
-  border: 1px solid #2563eb;
-}
-
 .otherMonth {
   color: #555;
 }
@@ -83,23 +79,20 @@
   border-radius: 0;
 }
 
-.selected {
-  background-color: #2563eb;
-  color: #fff;
+.today {
+  border: none;
+  color: #3b82f6;
 }
 
-.today {
-  border: 1px solid #2563eb;
+.weekend {
+  color: #ef4444;
+  font-weight: 600;
 }
 
 .inputWrapper.disabled .input {
   border-top: none;
   border-color: #555;
   cursor: not-allowed;
-}
-.weekend {
-  color: #ef4444;
-  font-weight: 600;
 }
 
 .inputWrapper.error .input {
@@ -110,4 +103,10 @@
 .errorText {
   color: #ef4444;
   font-size: 12px;
+}
+
+.disabled {
+  color: #555;
+  pointer-events: none;
+  opacity: 0.5;
 }
