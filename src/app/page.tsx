@@ -1,5 +1,6 @@
 "use client";
 
+import CalendarIcon from "@/component/DatPicker/CalendarIcon";
 import { DatePicker } from "@/component/DatPicker/DatePicker";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
@@ -14,7 +15,6 @@ export default function Home() {
   return (
     <div>
       <DatePicker
-        disabled={true}
         label='Выбери дату'
         mode='single'
         value={selected}
@@ -22,6 +22,18 @@ export default function Home() {
         minDate={new Date(2025, 0, 1)}
         maxDate={new Date(2025, 11, 31)}
       />
+      <div>
+        <DatePicker
+          label='Выбери дату'
+          mode='range'
+          value={selected}
+          onChange={handleDateChange}
+          minDate={new Date(2025, 0, 1)}
+          maxDate={new Date(2025, 11, 31)}
+        />
+      </div>
+
+  
     </div>
   );
 }

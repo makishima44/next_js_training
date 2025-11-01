@@ -1,9 +1,9 @@
 import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import { DayPicker, type DateRange } from "react-day-picker";
-
 import "react-day-picker/dist/style.css";
 import styles from "./DatePicker.module.scss";
+import CalendarIcon from "./CalendarIcon";
 
 export type DatePickerMode = "single" | "range";
 
@@ -11,8 +11,8 @@ export type Props = {
   mode?: DatePickerMode;
   value?: Date | DateRange;
   onChange?: (value: Date | DateRange | undefined) => void;
-  placeholder?: string;
   label?: string;
+  placeholder?: string;
   error?: string;
   disabled?: boolean;
   format?: string;
@@ -25,8 +25,8 @@ export const DatePicker = ({
   mode = "single",
   value,
   onChange,
-  placeholder = "Select date",
   label,
+  placeholder = "Select date",
   error,
   disabled = false,
   format: dateFormat = "dd/MM/yyyy",
@@ -35,46 +35,48 @@ export const DatePicker = ({
   className,
 }: Props) => {
   const [open, setOpen] = useState(false);
-  const [internalValue, setInternalValue] = useState<Date | DateRange | undefined>(value);
-
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const isRange = mode === "range";
-  const selected = value ?? internalValue;
-
-  const handleSelect = (val: Date | DateRange | undefined) => {
-    if (!val) return;
-    setInternalValue(val);
-    onChange?.(val);
-    if (mode === "single") setOpen(false);
-  };
-
-  const displayValue = (() => {
-    if (!selected) return "";
-
-    if (isRange) {
-      const { from, to } = selected as DateRange;
-      if (from && to) return `${format(from, dateFormat)} - ${format(to, dateFormat)}`;
-      if (from && !to) return format(from, dateFormat);
-      return "";
-    }
-
-    if (!isRange && selected instanceof Date) {
-      return format(selected, dateFormat);
-    }
-
-    return "";
-  })();
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
+    const handleClickOutside = (e: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) setOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleSelect = (val: Date | DateRange | undefined) => {
+    onChange?.(val);
+    // if (mode === "single") setOpen(false);
+  };
+
+  const formatValue = (v: Date | DateRange | undefined) => {
+    if (!v) return "";
+    if (isRange) {
+      const { from, to } = v as DateRange;
+      if (from && to) return `${format(from, dateFormat)} - ${format(to, dateFormat)}`;
+      if (from) return format(from, dateFormat);
+      return "";
+    }
+    return v instanceof Date ? format(v, dateFormat) : "";
+  };
+
+  const modifiers = {
+    disabled: [(date: Date) => (minDate ? date < minDate : false), (date: Date) => (maxDate ? date > maxDate : false)],
+    weekend: (date: Date) => [0, 6].includes(date.getDay()),
+  };
+
+  const modifiersClassNames = {
+    weekend: styles.weekend,
+    range_start: styles.rangeStart,
+    range_end: styles.rangeEnd,
+    range_middle: styles.rangeMiddle,
+    selected: styles.selected,
+    today: styles.today,
+    disabled: styles.disabled,
+  };
 
   return (
     <div ref={wrapperRef} className={`${styles.wrapper} ${className ?? ""}`}>
@@ -85,62 +87,28 @@ export const DatePicker = ({
           readOnly
           disabled={disabled}
           placeholder={placeholder}
-          value={displayValue}
+          value={formatValue(value)}
           className={styles.input}
-          onClick={() => !disabled && setOpen((prev) => !prev)}
+          onClick={() => setOpen((prev) => !prev)}
         />
-        <span className={styles.icon}>📅</span>
+        <span className={styles.icon}>
+          <CalendarIcon color={error ? "#ef4444" : undefined} />
+        </span>
       </div>
 
       {error && <p className={styles.errorText}>{error}</p>}
 
       {open && !disabled && (
         <div className={styles.calendarWrapper}>
-          {isRange ? (
-            <DayPicker
-              mode='range'
-              selected={selected as DateRange | undefined}
-              onSelect={handleSelect}
-              weekStartsOn={1}
-              modifiers={{
-                weekend: (date) => {
-                  const day = date.getDay();
-                  return day === 0 || day === 6;
-                },
-              }}
-              modifiersClassNames={{
-                range_start: styles.rangeStart,
-                range_end: styles.rangeEnd,
-                range_middle: styles.rangeMiddle,
-                selected: styles.selected,
-                today: styles.today,
-                disabled: styles.disabled,
-                weekend: styles.weekend,
-              }}
-            />
-          ) : (
-            <DayPicker
-              mode='single'
-              selected={selected as Date | undefined}
-              weekStartsOn={1}
-              onSelect={(val: Date | undefined) => {
-                if (!val) return;
-                setInternalValue(val);
-                onChange?.(val);
-                setOpen(false);
-              }}
-              modifiers={{
-                disabled: [(date) => (minDate ? date < minDate : false), (date) => (maxDate ? date > maxDate : false)],
-                weekend: (date) => {
-                  const day = date.getDay();
-                  return day === 0 || day === 6;
-                },
-              }}
-              modifiersClassNames={{
-                weekend: styles.weekend,
-              }}
-            />
-          )}
+          <DayPicker
+            mode={mode}
+            required={false}
+            selected={value as any}
+            onSelect={handleSelect as any}
+            weekStartsOn={1}
+            modifiers={modifiers}
+            modifiersClassNames={modifiersClassNames}
+          />
         </div>
       )}
     </div>
