@@ -1,7 +1,7 @@
 // DatePicker.stories.tsx
 import React, { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import { DatePicker, Props as DatePickerProps } from "./DatePicker";
+import { DatePicker, Props as DatePickerProps } from "./datePicker";
 import { DateRange } from "react-day-picker";
 import { startOfMonth, endOfMonth } from "date-fns";
 

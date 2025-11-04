@@ -24,11 +24,7 @@ export default function SelectBox({ label = "", options, defaultValue, placehold
       {label && <span className={s.label}>{label}</span>}
 
       <Select.Root defaultValue={defaultValue}>
-        <Select.Trigger
-          className={`${s.trigger} ${disabled ? s.disabled : ""}`}
-          aria-label={placeholder}
-          disabled={disabled} // <- это важно
-        >
+        <Select.Trigger className={`${s.trigger} ${disabled ? s.disabled : ""}`} aria-label={placeholder} disabled={disabled}>
           <Select.Value placeholder={placeholder} />
           <Select.Icon>
             <span className={s.arrow}>▾</span>

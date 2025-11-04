@@ -2,8 +2,8 @@ import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import { DayPicker, type DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import styles from "./DatePicker.module.scss";
-import CalendarIcon from "./CalendarIcon";
+import styles from "./datePicker.module.scss";
+import CalendarIcon from "@/icon/CalendarIcon";
 
 export type DatePickerMode = "single" | "range";
 
@@ -49,7 +49,6 @@ export const DatePicker = ({
 
   const handleSelect = (val: Date | DateRange | undefined) => {
     onChange?.(val);
-    // if (mode === "single") setOpen(false);
   };
 
   const formatValue = (v: Date | DateRange | undefined) => {

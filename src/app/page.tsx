@@ -1,7 +1,7 @@
 "use client";
 
-import CalendarIcon from "@/component/DatPicker/CalendarIcon";
-import { DatePicker } from "@/component/DatPicker/DatePicker";
+import CalendarIcon from "@/icon/CalendarIcon";
+import { DatePicker } from "@/component/datPicker/datePicker";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
 
@@ -32,8 +32,6 @@ export default function Home() {
           maxDate={new Date(2025, 11, 31)}
         />
       </div>
-
-  
     </div>
   );
 }
